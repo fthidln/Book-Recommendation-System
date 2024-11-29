@@ -4,7 +4,7 @@ By    : Muhammad Fatih Idlan (faiti.alfaqar@gmail.com)
 
 This project was done to fulfil the *Machine Learning Terapan* 2nd assignment submission on Dicoding. The domain used in this project is book recommendation.
 
-## Project Domain
+## Project Overview
 In today’s digital age, the volume of content and choices available to users across platforms is overwhelming. Recommender systems play an indispensable role in navigating this vast landscape, ensuring users discover relevant and engaging content without being inundated by irrelevant options. By personalizing user experiences, these systems have become a cornerstone in industries like e-commerce, entertainment, and education, boosting user satisfaction, retention, and revenue. This project delves into the development of a book recommendation system, leveraging collaborative filtering techniques and the Nearest Neighbors algorithm to match users with books they are most likely to enjoy. Collaborative filtering, a widely used approach, relies on user-item interactions to uncover patterns and provide recommendations. Furthermore, Collaborative Filtering can make unforeseen recommendations, which means it might offer items that are relevant to the user even if the information is not in the user's profile [[ 1 ]](https://doi.org/10.1016/j.eij.2015.06.005). The system implementation is aimed to demonstrate how machine learning can be harnessed to create a seamless and personalized user experience in the context of literature discovery.
 
 ## Business Understanding
@@ -20,7 +20,7 @@ According to problem statement above, this project has several objectives too, t
 * Develop a machine learning-based recommendation system for books
 * Determining high performance model with variation of data preparation method
 
-### Solution
+### Solution Approach
 To achive the objectives, we need to perform several things such as:
 
 * Using Nearest Neighbour through variation of data with and without normalization to selecting high performance corresponding to evaluation metrics (Euclidean Distance)
