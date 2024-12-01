@@ -63,7 +63,6 @@ Conducting exploratory data analysis, including univariate analysis consisting o
 
 *  Top 10 Users with the Most Rating Amount<br>
 ![Top 10 Users with the Most Rating Amount](Assets/Top10_User.png "Top 10 Users with the Most Rating Amount")
-<br>
 
 #### Important Key Points from EDA
 *   Most of the rating is retrieved in implicit way, so we can just drop that to receive more representable results 
