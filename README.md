@@ -53,15 +53,15 @@ For Users.csv, the column are consist of:
 Conducting exploratory data analysis, including univariate analysis consisting of book's rating distribution, top 10 book amount also top 10 users with the most amount of rating.
 
 #### Univariate Analysis
-*  Distribution of Book Ratings
+*  Distribution of Book Ratings<br>
 ![Distribution of Book Ratings](Assets/Dist_Rat.png "Distribution of Book Ratings")
 <br>
 
-*  Top 10 Books Amount
+*  Top 10 Books Amount<br>
 ![Top 10 Books Amount](Assets/Top10_Books.png "Top 10 Books Amount")
 <br>
 
-*  Top 10 Users with the Most Rating Amount
+*  Top 10 Users with the Most Rating Amount<br>
 ![Top 10 Users with the Most Rating Amount](Assets/Top10_User.png "Top 10 Users with the Most Rating Amount")
 <br>
 
