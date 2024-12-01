@@ -12,7 +12,7 @@ In today’s digital age, the volume of content and choices available to users a
 Starting with explanation from the background above, core problems that this project aims to solve are:
 
 * How to develop a machine learning-based recommendation system for books?
-* How are the results when data with and without normalization is compared using the same algorithm?
+* How are the results when data with and without standardization is compared using the same algorithm?
 
 ### Objectives
 According to problem statement above, this project has several objectives too, that are:
@@ -23,7 +23,7 @@ According to problem statement above, this project has several objectives too, t
 ### Solution Approach
 To achive the objectives, we need to perform several things such as:
 
-* Using Nearest Neighbour through variation of data with and without normalization to selecting high performance corresponding to evaluation metrics (Euclidean Distance)
+* Using Nearest Neighbour through variation of data with and without standardization to selecting high performance corresponding to evaluation metrics (Euclidean Distance)
 
 ## Data Understanding
 ![Data Understanding](/Assets/Kaggle.png "Data Understanding")
@@ -66,7 +66,7 @@ Conducting exploratory data analysis, including univariate analysis consisting o
 *   Most of the rating is retrieved in implicit way, so we can just drop that to receive more representable results 
 *   "Selected Poems" and "Little Women" have the highest amounts, indicating strong popularity or frequent selection
 *   The remaining users in top 10 have a much smaller number of ratings compared to the top two, indicating a long-tail distribution. This could mean a mix of power users and casual users in the dataset
-*   High activity from a few users could introduce bias in your model, skewing recommendations toward their preferences. Mitigating this with normalization or weighting techniques might be critical.
+*   High activity from a few users could introduce bias in your model, skewing recommendations toward their preferences. Mitigating this with standardization or weighting techniques might be critical.
 
 ## Data Preparation
 Before model development step, it is inevitable to skip data preparation. This section is important, preparing data so the data that enter model development stage is not generating a trash model. It is start with data cleaning which removing empty data using pandas data frame method, drop_dropna(). Later, combine the rating and book dataframe into pivot table to reveal patterns in user-book interactions. The last thing to do is value standardization of the data to perform efficiently by ensuring that different variables are treated on a common scale, since this project use an algorithm that rely in distance metrics (Nearest Neighbour). But this done through varying it into standardize data and un-standardize data, so there will be 2 variation that we want to compare with the same algorithm.
@@ -109,22 +109,33 @@ Euclidean distance is a measure of similarity or dissimilarity between two point
 
 From metric evaluation table above, we can conclude that Nearest Neighbour with standardization data pre-processing algorithm is the most desired algortihm because has the average lowest euclidean value value for top-N recommendation comparing to same model but without standardization pre-processing.
 
-### Model Prediction
-This step is carried out to see how each machine learning algorithm predicting the target data (source pressure).
+### Recommendation Function
+This step is carried out to make a function to help the user, finding the recommended book based on book title that they mention.
 
-|index|y\_true|dimension|LR|KNN|ANN|
-|---|---|---|---|---|---|
-|770|601|0\.25246995242719095|580\.21152119611|590\.6|577\.8556518554688|
+```
+def get_recommends(title="", n=5):
+    try:
+        book_index = df_main.index.get_loc(title)  # Get index directly
+        book_values = df_main.values[book_index]  # Get values using index
+    except KeyError as e:
+        print('The given book', e, 'does not exist')
+        return
 
-![Prediction Scatter](Assets/RealPredScatter.png "Prediction Scatter")
+    n+=1
 
-From the figure above, we can compare how prediction data and real data from each machine learning algorithm (K-Nearest Neighbour, Linear Regression, Dense Neural Network). Clearly, Linear Regression generated data point in a straight line. K-Nearest Neighbour generated data points that gather in one area. Then Dense Neural Network seems to struggle with its predictions forming a smoother but lower curve that doesn't capture the wide spread of real data.
+    distances, indices = KNN.kneighbors([book_values], n_neighbors=n)
 
-### Conclusion
-After building this project, we can answer the problem statement and fulfil our objectives that we set before in business understanding section. Also, by implementing solution statement, we can easily achieve them (the answer of problem statements and fulfil the objectives), due to heatmap visualization of correlation matrix to understand interaction of each variables and the usage of MSE metrics to identify the best model from several machine learning algorithm (K-Nearest Neighbour, Dense Neural Network, and Linear Regression).
-* From correlation matrix visualization using heatmap, we can see that among all variables that do not have a strong influencial to dependent variable, source input pressure (mmH2O), there is several variables have a correlation point up to 0.5 indicating high influential presence, that are Air flowrate in zone 1 (NM3/H.1PV), Air flowrate in zone 2 (NM3/H.2PV), Desired air flowrate in zone 1 (NM3/H.1SV), and Desired air flowrate in zone 2 (NM3/H.2SV).
-* With correaltion point up to 0.5 for NM3/H.1PV, NM3/H.2PV, NM3/H.1SV, and NM3/H.2SV indicating that all this variables is positively related with our target variable. It means that the bigger value of independent variables, the bigger value for dependent variable is generated.
-* Using MSE metrics, we can conclude that the K-Nearest Neighbour algorithm is the best algorithm for this project with MSE value for train set is 1731.47 and test set is 4193.04 making it the lowest. Followed by Dense Neural Network with MSE value for train set is 2773.79 and test set is 4416.75 and the last algorithm is Linear Regression with MSE value for train set is 5030.2 and test set is 5404.62.
+    # Get recommended titles directly using indices
+    recommended_titles = df_main.iloc[indices[0]].index.tolist()
+
+    recommended_titles = [x for x in recommended_titles if x != title]
+
+    recommended_titles_str = '\n'.join(recommended_titles)
+
+    return f"This are your top {n-1} recommended books:\n{recommended_titles_str}"
+```
+
+From code snippet above, we can takes a book title and desired number of recommendations as input, locates the book within a dataset, utilizes a pre-trained K-Nearest Neighbors (KNN) model to identify the most similar books based on their rating, filters out the original title from the results, and returns a formatted string containing a list of the top recommended books.
 
 ## Reference
 
@@ -135,5 +146,3 @@ After building this project, we can answer the problem statement and fulfil our 
 *   [ 3 ] K. Mahmud Sujon, R. Binti Hassan, Z. Tusnia Towshi, M. A. Othman, M. Abdus Samad, and K. Choi, “When to Use Standardization and Normalization: Empirical Evidence From Machine Learning Models and XAI,” IEEE Access, vol. 12, pp. 135300–135314, 2024, doi: 10.1109/ACCESS.2024.3462434.
 
 *   [ 4 ] “Euclidean Distance | Formula, Derivation & Solved Examples,” GeeksforGeeks. Accessed: Dec. 01, 2024. [Online]. Available: https://www.geeksforgeeks.org/euclidean-distance/
-
-*   [ 6 ] “Mean Squared Error | Definition, Formula, Interpretation and Examples,” GeeksforGeeks. Accessed: Oct. 23, 2024. [Online]. Available: https://www.geeksforgeeks.org/mean-squared-error/
