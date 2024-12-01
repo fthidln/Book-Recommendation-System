@@ -54,20 +54,17 @@ Conducting exploratory data analysis, including univariate analysis consisting o
 
 #### Univariate Analysis
 *  Distribution of Book Ratings
-<br>
 ![Distribution of Book Ratings](Assets/Dist_Rat.png "Distribution of Book Ratings")
-<br>
 
+<br>
 *  Top 10 Books Amount
-<br>
 ![Top 10 Books Amount](Assets/Top10_Books.png "Top 10 Books Amount")
-<br>
 
+<br>
 *  Top 10 Users with the Most Rating Amount
-<br>
 ![Top 10 Users with the Most Rating Amount](Assets/Top10_User.png "Top 10 Users with the Most Rating Amount")
-<br>
 
+<br>
 #### Important Key Points from EDA
 *   Most of the rating is retrieved in implicit way, so we can just drop that to receive more representable results 
 *   "Selected Poems" and "Little Women" have the highest amounts, indicating strong popularity or frequent selection
