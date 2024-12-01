@@ -54,17 +54,17 @@ Conducting exploratory data analysis, including univariate analysis consisting o
 
 #### Univariate Analysis
 *  Distribution of Book Ratings
-<div style="float:left;margin:0 10px 10px 0" markdown="1">
+<div style="float:center;margin:0 10 10 0" markdown="1">
 ![Distribution of Book Ratings](Assets/Dist_Rat.png "Distribution of Book Ratings")
 </div>
 
 *  Top 10 Books Amount
-<div style="float:left;margin:0 10px 10px 0" markdown="1">
+<div style="float:center;margin:0 10 10 0" markdown="1">
 ![Top 10 Books Amount](Assets/Top10_Books.png "Top 10 Books Amount")
 </div>
 
 *  Top 10 Users with the Most Rating Amount
-<div style="float:left;margin:0 10px 10px 0" markdown="1">
+<div style="float:center;margin:0 10 10 0" markdown="1">
 ![Top 10 Users with the Most Rating Amount](Assets/Top10_User.png "Top 10 Users with the Most Rating Amount")
 </div>
 
