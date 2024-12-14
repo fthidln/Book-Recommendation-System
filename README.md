@@ -120,7 +120,7 @@ $$\mathbf{Recall} = \frac{TP}{TP+FN}$$
 * F1-Score
 The F1-score is the harmonic mean of precision and recall, providing a single metric to balance both. For a recommender system, the F1-score evaluates the overall effectiveness of recommendations, ensuring neither precision nor recall is sacrificed.<br> 
 
-$$\mathbf{F}_1 = \frac{2\cdot{Precision}\cdot{Recall}}%{{Precision}+{Recall}}$$
+$$\mathbf{F}_1 = \frac{2\cdot{Precision}\cdot{Recall}}{{Precision}+{Recall}}$$
 
 <br>
 
