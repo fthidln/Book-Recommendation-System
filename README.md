@@ -120,18 +120,21 @@ The F1-score is the harmonic mean of precision and recall, providing a single me
 
 $$\mathbf{F}_1 = \frac{2\cdot{Precision}\cdot{Recall}}{{Precision}+{Recall}}$$
 
+<br>Where:
+* TP = True Positive (When the model correctly predicts a positive outcome)
+* TN = True Negative (When the model correctly predicts a negative outcome)
+* FP = False Positive (When the model incorrectly predicts a positive outcome)
+* FN = False Negative (When the model incorrectly predicts a negative outcome)
 ### Model Evaluation with Collaborative Filtering
-w
+In the Collaborative Filtering model, RMSE (Root Mean Squared Error) is used to evaluate how accurately the model predicts continuous values by comparing predicted and actual values. RMSE helps assess the model's ability to predict user preferences.<br>
 
-The metrics evaluation used for this step is Euclidean Distance<br><br>
-$$d(\mathbf{p}, \mathbf{q}) = \sqrt{\sum_{i=1}^n (p_i - q_i)^2}$$
-<br>
+$$RMSE(y, x) = \sqrt{\frac{\sum_{i=0}^{N - 1} (y_i - x_i)^2}{N}}$$
 
-Where:
-* $$d(\mathbf{p}, \mathbf{q})$$: Represents the Euclidean distance between two points 𝑝 and 𝑞
-* $$\mathbf{p}_i$$ : The 𝑖-th coordinate of point 𝑝
-* $$\mathbf{q}_i$$ : The 𝑖-th coordinate of point 𝑞
-* 𝑛 : The number of dimensions
+<br>Where:
+* N = Amount of the data
+* i = Index of the data
+* y = Actual rating
+* x = Predicted rating
 
 Euclidean distance is a measure of similarity or dissimilarity between two points in a multi-dimensional space. It calculates the straight-line distance between two vectors (e.g., user preferences, book features) in 𝑛-dimensional space. Euclidean distance helps measure the quality of predictions in terms of how closely the system matches a user's preferences. This metric is suitable for recommendation system, because it calculate the shortest straight-line distance between two points which describe the similiarity between two or more users [[ 4 ]](https://www.geeksforgeeks.org/euclidean-distance/).
 
