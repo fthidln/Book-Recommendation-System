@@ -162,7 +162,8 @@ This step is carried out to make a function to help the user, finding the recomm
 |8|Seedfolks|Paul Fleischman|
 |9|Seedfolks|Paul Fleischman|
 |10|The Borning Room|Paul Fleischman|
-It can be seen that all of the recommendation for this book share one the same author, Paul Fleischman. This happen because it measure the most relevant books with 'Joyful Noise (rpkg) : Poems for Two Voices' book.
+
+<br>It can be seen that all of the recommendation for this book share one the same author, Paul Fleischman. This happen because it measure the most relevant books with 'Joyful Noise (rpkg) : Poems for Two Voices' book.
 
 ### Recommendation for Collaborative Filtering
 This step is carried out to make a function to help the user, finding the recommended book based on user's rating and applied it into other user's rating. The sample user that used to test this step is have a user id of 3363 with highest rating book from the user is 'Joyful Noise (rpkg) : Poems for Two Voices' by Paul Fleischman. The top 10 that we got can be seen below.
@@ -178,7 +179,8 @@ This step is carried out to make a function to help the user, finding the recomm
 |8|Legend|Sharon Sala|
 |9|For My Daughters|Barbara Delinsky|
 |10|Memoirs of a Geisha Uk|Arthur Golden|
-With the same book title, it can be seen that the top 10 recommendation for Collaborative Filtering are more various comparing to Content-based Filtering. This is gonna be one of the proof that Content-based Filtering arise cold start issues.
+
+<br>With the same book title, it can be seen that the top 10 recommendation for Collaborative Filtering are more various comparing to Content-based Filtering. This is gonna be one of the proof that Content-based Filtering arise cold start issues.
 
 ## Reference
 
