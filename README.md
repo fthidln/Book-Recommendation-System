@@ -126,7 +126,7 @@ $$\mathbf{F}_1 = \frac{2\cdot{Precision}\cdot{Recall}}{{Precision}+{Recall}}$$
 * FP = False Positive (When the model incorrectly predicts a positive outcome)
 * FN = False Negative (When the model incorrectly predicts a negative outcome)
 ### Model Evaluation with Collaborative Filtering
-In the Collaborative Filtering model, RMSE (Root Mean Squared Error) is used to evaluate how accurately the model predicts continuous values by comparing predicted and actual values. RMSE helps assess the model's ability to predict user preferences.<br>
+In the Collaborative Filtering model, RMSE (Root Mean Squared Error) is used to evaluate how accurately the model predicts continuous values by comparing predicted and actual values. RMSE helps assess the model's ability to predict user preferences. Root Mean Squared Error (RMSE) is a commonly used evaluation metric for measuring the accuracy of predictions in recommender systems [[ 4 ]](https://doi.org/10.1016/j.knosys.2015.12.025). <br>
 
 $$RMSE(y, x) = \sqrt{\frac{\sum_{i=0}^{N - 1} (y_i - x_i)^2}{N}}$$
 
@@ -136,53 +136,45 @@ $$RMSE(y, x) = \sqrt{\frac{\sum_{i=0}^{N - 1} (y_i - x_i)^2}{N}}$$
 * y = Actual rating
 * x = Predicted rating
 
-Euclidean distance is a measure of similarity or dissimilarity between two points in a multi-dimensional space. It calculates the straight-line distance between two vectors (e.g., user preferences, book features) in 𝑛-dimensional space. Euclidean distance helps measure the quality of predictions in terms of how closely the system matches a user's preferences. This metric is suitable for recommendation system, because it calculate the shortest straight-line distance between two points which describe the similiarity between two or more users [[ 4 ]](https://www.geeksforgeeks.org/euclidean-distance/).
+## Performance of Each Recommender System
+### Performance of Content-based Filtering
+The evaluation results show that the model performs excellently, with a Precision of 1.0 (no false positives), a Recall of 1.0 (identifying nearly all relevant items), and an F1 Score close to 1.0, indicating a strong balance between precision and recall. These results demonstrate that the model is highly effective at recommending items using content-based filtering. <br> 
+![CBF Performance](Assets/ConfMat.png "CBF Performance")
 
-### Performance of Each Recommender System
-![Recommended Distance Comparison](Assets/EucDistComp.png "Recommended Distance Comparison")
+### Performance of Collaborative Filtering
+The RMSE evaluation visualization shows that the model converges after about 50 epochs, achieving a low MSE value. The final error is 0.2924, with a validation error of 0.3389. These results indicate good performance, as a lower RMSE means better predictions of user preferences, making the recommendation system accurate. <br> 
+![CF Performance](Assets/CF_Perf.png "CF Performance")
 
-|index|Recommended Title w/ Standardization|Recommended Distance w/ Standardization|Recommended Title w/o Standardization|Recommended Distance w/o Standardization|
-|---|---|---|---|---|
-|0|The Bean Trees|13\.210874318725459|The Bean Trees|0\.0|
-|1|She's Come Undone \(Oprah's Book Club \(Paperback\)\)|18\.25312417493501|She's Come Undone \(Oprah's Book Club \(Paperback\)\)|20\.71231517720798|
-|2|Message in a Bottle|19\.175551891499328|The Book of Ruth \(Oprah's Book Club \(Paperback\)\)|20\.97617696340303|
-|3|The Book of Ruth \(Oprah's Book Club \(Paperback\)\)|20\.004643098492593|A Heartbreaking Work of Staggering Genius|21\.540659228538015|
-|4|Where the Heart Is \(Oprah's Book Club \(Paperback\)\)|20\.127327140139407|Prodigal Summer: A Novel|22\.561028345356956|
-|5|Midnight in the Garden of Good and Evil: A Savannah Story|20\.308733957555393|Message in a Bottle|22\.58317958127243|
-|6|Prodigal Summer: A Novel|20\.330839049718872|She's Come Undone \(Oprah's Book Club\)|22\.693611435820433|
-|7|The Hours: A Novel|20\.336413030797384|Mystic River|23\.2163735324878|
-|8|A Heartbreaking Work of Staggering Genius|20\.42423929077602|The Queen of the Damned \(Vampire Chronicles \(Paperback\)\)|23\.2379000772445|
-|9|1984|20\.60415091109995|While I Was Gone|23\.853720883753127|
+## Recommendation
+### Recommendation for Content-based Filtering
+This step is carried out to make a function to help the user, finding the recommended book based on book's content. The sample book title that used to test this step is 'Joyful Noise (rpkg) : Poems for Two Voices' by Paul Fleischman. The top 10 that we got can be seen below.
+|Index|Book Title|Book Author|
+|---|---|---|
+|1|Graven Images: Three Stories|Paul Fleischman|
+|2|The Path of the Pale Horse \(Charlotte Zolotow Book\)|Paul Fleischman|
+|3|Seedfolks|Paul Fleischman|
+|4|Seedfolks|Paul Fleischman|
+|5|The Borning Room|Paul Fleischman|
+|6|The Borning Room|Paul Fleischman|
+|7|The Half-a-Moon Inn|Paul Fleischman|
+|8|Seedfolks|Paul Fleischman|
+|9|Seedfolks|Paul Fleischman|
+|10|The Borning Room|Paul Fleischman|
 
-From metric evaluation table above, we can conclude that Nearest Neighbour with standardization data pre-processing algorithm is the most desired algortihm because has the average lowest euclidean value for top-N recommendation comparing to same model but without standardization pre-processing. Moreover, for the first row it is the first point, the book that we try to search the recommendation. Notice that the distance data without standardization starts at 0 for "The Bean Trees" because the first comparison is against itself, resulting in an inherent distance of 0 in the raw data. However, with standardization, the data undergoes centering and scaling, shifting and altering the representation of "The Bean Trees" so that even when compared to itself, the calculated distance is no longer exactly 0 due to these transformations. Although non-zero, this distance remains small relative to distances between "The Bean Trees" and other books, and standardization ultimately helps ensure fairer feature contributions in the similarity measure.
-
-### Recommendation Function
-This step is carried out to make a function to help the user, finding the recommended book based on book title that they mention.
-
-```
-def get_recommends(title="", n=5):
-    try:
-        book_index = df_main.index.get_loc(title)  # Get index directly
-        book_values = df_main.values[book_index]  # Get values using index
-    except KeyError as e:
-        print('The given book', e, 'does not exist')
-        return
-
-    n+=1
-
-    distances, indices = KNN.kneighbors([book_values], n_neighbors=n)
-
-    # Get recommended titles directly using indices
-    recommended_titles = df_main.iloc[indices[0]].index.tolist()
-
-    recommended_titles = [x for x in recommended_titles if x != title]
-
-    recommended_titles_str = '\n'.join(recommended_titles)
-
-    return f"This are your top {n-1} recommended books:\n{recommended_titles_str}"
-```
-
-From code snippet above, we can takes a book title and desired number of recommendations as input, locates the book within a dataset, utilizes a pre-trained K-Nearest Neighbors (KNN) model to identify the most similar books based on their rating, filters out the original title from the results, and returns a formatted string containing a list of the top recommended books.
+### Recommendation for Collaborative Filtering
+This step is carried out to make a function to help the user, finding the recommended book based on user's rating and applied it into other user's rating. The sample user that used to test this step is have a user id of 3363 with highest rating book from the user is 'Joyful Noise (rpkg) : Poems for Two Voices' by Paul Fleischman. The top 10 that we got can be seen below.
+|Index|Book Title|Book Author|
+|---|---|---|
+|1|The Complete Idiot's Guide to Cycling|Vic Armijo|
+|2|A Kiss on the Nose Turns Anger Aside|Charles M\. Schulz|
+|3|The Dominant Blonde|Alisa Kwitney|
+|4|The Last Report on the Miracles at Little No Horse|Louise Erdrich|
+|5|Ties That Bind|Phillip Margolin|
+|6|Inventing the Abbotts and Other Stories \(Harper\&amp; Row, 1987\)|Sue Miller|
+|7|Kingmaker's Sword \(The Rune Blade Trilogy, Book 1\)|Ann Marston|
+|8|Legend|Sharon Sala|
+|9|For My Daughters|Barbara Delinsky|
+|10|Memoirs of a Geisha Uk|Arthur Golden|
 
 ## Reference
 
@@ -190,6 +182,6 @@ From code snippet above, we can takes a book title and desired number of recomme
 
 *   [ 2 ] [1] “Book Recommendation Dataset | Kaggle.” Accessed: Dec. 01, 2024. [Online]. Available: https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset
 
-*   [ 3 ] K. Mahmud Sujon, R. Binti Hassan, Z. Tusnia Towshi, M. A. Othman, M. Abdus Samad, and K. Choi, “When to Use Standardization and Normalization: Empirical Evidence From Machine Learning Models and XAI,” IEEE Access, vol. 12, pp. 135300–135314, 2024, doi: 10.1109/ACCESS.2024.3462434.
+*   [ 3 ] S. Banerjee, “Keras documentation: Collaborative Filtering for Movie Recommendations.” Accessed: Dec. 14, 2024. [Online]. Available: https://keras.io/examples/structured_data/collaborative_filtering_movielens/
 
-*   [ 4 ] “Euclidean Distance | Formula, Derivation & Solved Examples,” GeeksforGeeks. Accessed: Dec. 01, 2024. [Online]. Available: https://www.geeksforgeeks.org/euclidean-distance/
+*   [ 4 ] F. Zhang, T. Gong, V. E. Lee, G. Zhao, C. Rong, and G. Qu, “Fast algorithms to evaluate collaborative filtering recommender systems,” Knowledge-Based Systems, vol. 96, pp. 96–103, Mar. 2016, doi: 10.1016/j.knosys.2015.12.025.
