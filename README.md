@@ -62,7 +62,7 @@ The data indicates that Agatha Christie is the most prolific author, with over 6
 *  Distribution of Books rating <br>
 ![Distribution of Book Ratings](Assets/Dist_Rat.png "Distribution of Book Ratings")
 <br>
-|Book-Rating|0|1|2|3|4|5|6|7|8|9|10|
+|Book\-Rating|0|1|2|3|4|5|6|7|8|9|10|
 |---|---|---|---|---|---|---|---|---|---|---|---|
 |Sum|716109|1770|2759|5996|8904|50974|36924|76457|103736|67541|78610|
 
@@ -107,7 +107,7 @@ In this step, we evaluate performance of each model that we have been developed.
 Model performance is evaluated using Precision, Recall, and F1-Score, based on cosine similarity with a 0.5 threshold. A ground truth matrix is generated, and 10,000 samples are used for faster evaluation. Similarity values are categorized as 1 or 0, and scores are calculated with binary classification.
 * Precision
 <br>
-$${Precision} &= \frac{TP}{TP+FP}$$
+$${Precision} = \frac{TP}{TP+FP}$$
 <br>
 * Recall
 * F1-Score
