@@ -1,29 +1,29 @@
-# **Recommendation System: Automating Book's Suggestion using Collaborative Filtering**
+# **Recommendation System: Automating Book's Suggestion using Content-based and Collaborative Filtering**
 
 By    : Muhammad Fatih Idlan (faiti.alfaqar@gmail.com)
 
 This project was done to fulfil the *Machine Learning Terapan* 2nd assignment submission on Dicoding. The domain used in this project is book recommendation.
 
 ## Project Overview
-In today’s digital age, the volume of content and choices available to users across platforms is overwhelming. Recommender systems play an indispensable role in navigating this vast landscape, ensuring users discover relevant and engaging content without being inundated by irrelevant options. By personalizing user experiences, these systems have become a cornerstone in industries like e-commerce, entertainment, and education, boosting user satisfaction, retention, and revenue. This project delves into the development of a book recommendation system, leveraging collaborative filtering techniques and the Nearest Neighbors algorithm to match users with books they are most likely to enjoy. Collaborative filtering, a widely used approach, relies on user-item interactions to uncover patterns and provide recommendations. Furthermore, Collaborative Filtering can make unforeseen recommendations, which means it might offer items that are relevant to the user even if the information is not in the user's profile [[ 1 ]](https://doi.org/10.1016/j.eij.2015.06.005). The system implementation is aimed to demonstrate how machine learning can be harnessed to create a seamless and personalized user experience in the context of literature discovery.
+In today’s digital age, the volume of content and choices available to users across platforms is overwhelming. Recommender systems play an indispensable role in navigating this vast landscape, ensuring users discover relevant and engaging content without being inundated by irrelevant options. By personalizing user experiences, these systems have become a cornerstone in industries like e-commerce, entertainment, and education, boosting user satisfaction, retention, and revenue. This project delves into the development of a book recommendation system, leveraging content-base filtering and collaborative filtering techniques with RecommenderNet model to match users with books they are most likely to enjoy. Content-based filtering is an approach in recommendation systems that utilizes information from items or users to make recommendations. While, collaborative filtering, a widely used approach, relies on user-item interactions to uncover patterns and provide recommendations. Unfortunately, content-based filtering techniques rely on item metadata, meaning they require detailed item descriptions and well-structured user profiles to generate accurate recommendations. Albeit that, collaborative filtering come up as a complementer which can make unforeseen recommendations, meaning it might offer items that are relevant to the user even if the information is not in the user's profile [[ 1 ]](https://doi.org/10.1016/j.eij.2015.06.005). The system implementation is aimed to demonstrate how machine learning can be harnessed to create a seamless and personalized user experience in the context of literature discovery.
 
 ## Business Understanding
 ### Problem Statement
 Starting with explanation from the background above, core problems that this project aims to solve are:
 
-* How to develop a machine learning-based recommendation system for books?
-* How are the results when data with and without standardization is compared using the same algorithm?
+* How to develop a machine learning-based recommendation system for books using content-based and colaborative filtering?
+* How are the results between those two techniques?
 
 ### Objectives
 According to problem statement above, this project has several objectives too, that are:
 
-* Develop a machine learning-based recommendation system for books
-* Determining high performance model with variation of data preparation method
+* Develop a machine learning-based recommendation system for books using content-based and colaborative filtering
+* Determining high performance model with variation of recommendation techniques
 
 ### Solution Approach
 To achive the objectives, we need to perform several things such as:
 
-* Using Nearest Neighbour through variation of data with and without standardization to selecting high performance corresponding to evaluation metrics (Euclidean Distance)
+* Using content-based and colaborative filtering compare the results between those two methods
 
 ## Data Understanding
 ![Data Understanding](/Assets/Kaggle.png "Data Understanding")
@@ -53,34 +53,69 @@ For Users.csv, the column are consist of:
 Conducting exploratory data analysis, including univariate analysis consisting of book's rating distribution, top 10 book amount also top 10 users with the most amount of rating.
 
 #### Univariate Analysis
-*  Distribution of Book Ratings<br>
+
+*    Top 10 Author by number of books <br>
+![Top 10 Author](Assets/Top10_Auth.png "Top 10 Author")
+<br>
+The data indicates that Agatha Christie is the most prolific author, with over 600 books to her name. This also highlights that the dataset includes multiple authors who have contributed more than one book title.
+
+*  Distribution of Books rating <br>
 ![Distribution of Book Ratings](Assets/Dist_Rat.png "Distribution of Book Ratings")
 <br>
-
-*  Top 10 Books Amount<br>
-![Top 10 Books Amount](Assets/Top10_Books.png "Top 10 Books Amount")
-<br>
-
-*  Top 10 Users with the Most Rating Amount<br>
-![Top 10 Users with the Most Rating Amount](Assets/Top10_User.png "Top 10 Users with the Most Rating Amount")
+|Book-Rating|0|1|2|3|4|5|6|7|8|9|10|
+|---|---|---|---|---|---|---|---|---|---|---|---|
+|Sum|716109|1770|2759|5996|8904|50974|36924|76457|103736|67541|78610|
 
 #### Important Key Points from EDA
+*    The data indicates that Agatha Christie is the most prolific author, with over 600 books to her name. This also highlights that the dataset includes multiple authors who have contributed more than one book title
+*    The output reveals that 105,283 users have provided ratings for books. A total of 340,556 unique books, identified by their ISBNs, received ratings, which range from 0 (the lowest score) to 10 (the highest score)
 *   Most of the rating is retrieved in implicit way, so we can just drop that to receive more representable results 
-*   "Selected Poems" and "Little Women" have the highest amounts, indicating strong popularity or frequent selection
-*   The remaining users in top 10 have a much smaller number of ratings compared to the top two, indicating a long-tail distribution. This could mean a mix of power users and casual users in the dataset
-*   High activity from a few users could introduce bias in your model, skewing recommendations toward their preferences. Mitigating this with standardization or weighting techniques might be critical.
+
+## Data Preprocessing
+This step is just include merging the dataframe of ratings and books together. This merging step is crucial for the recommendation system because it links user ratings with corresponding book details like author, title, and genre. This unified dataset enables the system to identify patterns in user preferences and recommend similar books based on content they enjoyed. Without this connection, neither content-based nor collaborative filtering techniques could effectively generate personalized recommendations.
 
 ## Data Preparation
-Before model development step, it is inevitable to skip data preparation. This section is important, preparing data so the data that enter model development stage is not generating a trash model. It is start with data cleaning which removing empty data using pandas data frame method, drop_dropna(). Later, combine the rating and book dataframe into pivot table to reveal patterns in user-book interactions. The last thing to do is value standardization of the data to perform efficiently by ensuring that different variables are treated on a common scale, since this project use an algorithm that rely in distance metrics (Nearest Neighbour). But this done through varying it into standardize data and un-standardize data, so there will be 2 variation that we want to compare with the same algorithm.
+Before model development step, it is inevitable to skip data preparation. This section is important, preparing data so the data that enter model development stage is not generating a trash model. This step is divided into two section, first is Data Preparation for Model Development w/ Content-based Filtering and w/ Collaborative Filtering.   
 
-### Standardization
-In order to scaling the dataset value, we can use standardization method. It transform the dataset in such a way to have a mean of 0 and standard deviation of 1. Moreover, standardization method is the superior scaling technique for medium and large dataset [[ 3 ]](https://ieeexplore.ieee.org/document/10681438).
+### Data Preparation for Model Development with Content-based Filtering
+Several features in the dataset contain a significant number of missing values. It is start with data cleaning which removing empty data using pandas data frame method, drop_dropna(). Later, the dataset provided reveals a mismatch between the number of ISBNs and book titles, suggesting that certain ISBNs are linked to multiple titles. To eliminate this issue, it'll involve eliminating duplicate entries in the 'ISBN' column using data frame method, drop_duplicates().
+
+### Data Preparation for Model Development with Collaborative Filtering
+This stage involves transforming the rating data into a numerical matrix to streamline the model's ability to interpret and learn from it effectively. As part of this stage, several preprocessing steps will be applied: encoding the 'User-ID' and 'ISBN' features into integer indices, mapping 'User-ID' and 'ISBN' to their respective dataframes, and verifying critical data attributes such as the total number of users and books.
 
 ## Model Development
-The data, which is likely a matrix of user-item interactions (book ratings), will be prepared and stored in a DataFrame. We then fit the KNN model to this data using 
-fit() method. This training process allows the model to learn the relationships between book based on user preferences. After training, the model can be used to predict the rating a user might give to an item they haven't interacted with or to find the 'N' most similar items to a given item, forming the basis of a recommendation system.
+The data, which is likely a matrix of user-item interactions (book ratings), will be prepared and stored in a DataFrame. It is very different to develop recommendation system using content-based and collaborative filtering. Further explanation for each model development can be seen below.
+
+### Model Development with Content-based Filtering
+The model uses Content-Based Filtering to recommend items based on user preferences and item features. This stage will employed TF-IDF Vectorizer and Cosine similarity to develop recommender model. TF-IDF Vectorizer identifies key features of book titles, focusing on authors, while Cosine similarity measures how closely books are related. Sklearn's tfidfvectorizer() and cosine_similarity() functions are applied to implement these steps. The cosine similarity formula can be seen below.<br>
+
+$$cos(\theta) = \frac{A \cdot B}{||A|| \cdot ||B||}$$
+<br>
+
+Where:
+* $${A \cdot B}$$ = Product (dot) of the vectors ‘A’ and ‘B’
+* $${||A||}$$ = Length (magnitude) of the two vectors ‘A’
+* $${||B||}$$ = Length (magnitude) of the two vectors ‘B’
+
+### Model Development with Collaborative Filtering
+This step applies collaborative filtering to recommend books based on user ratings, assuming similar preferences predict similar choices. The model uses embeddings for users and books, calculates match scores with a sigmoid function, and incorporates user/book biases. Adapted from a Keras tutorial [[ 3 ]](https://keras.io/examples/structured_data/collaborative_filtering_movielens/), it uses Binary Crossentropy for loss, Adam for optimization, and RMSE for evaluation. The data is split into 90% training and 10% validation, due to large amount of data available. Before this, user and book title data are mapped to single values, and ratings are scaled to a 0-1 range for easier training. The RecommenderNet class, built using the Keras Model class and adapted from a Keras tutorial, is used for this process.
 
 ## Evaluation
+In this step, we evaluate performance of each model that we have been developed. So, this step will be consist of evaluating Content-based filtering model and Collaborative filtering model.
+
+### Model Evaluation with Content-based Filtering
+Model performance is evaluated using Precision, Recall, and F1-Score, based on cosine similarity with a 0.5 threshold. A ground truth matrix is generated, and 10,000 samples are used for faster evaluation. Similarity values are categorized as 1 or 0, and scores are calculated with binary classification.
+* Precision
+<br>
+$${Precision} &= \frac{TP}{TP+FP}$$
+<br>
+* Recall
+* F1-Score
+
+
+### Model Evaluation with Collaborative Filtering
+w
+
 The metrics evaluation used for this step is Euclidean Distance<br><br>
 $$d(\mathbf{p}, \mathbf{q}) = \sqrt{\sum_{i=1}^n (p_i - q_i)^2}$$
 <br>
