@@ -107,16 +107,22 @@ In this step, we evaluate performance of each model that we have been developed.
 Model performance is evaluated using Precision, Recall, and F1-Score, based on cosine similarity with a 0.5 threshold. A ground truth matrix is generated, and 10,000 samples are used for faster evaluation. Similarity values are categorized as 1 or 0, and scores are calculated with binary classification.
 * Precision
 It measures the proportion of recommended items that are actually relevant to the user. High precision ensures that the recommendations made by the model are relevant, reducing irrelevant recommendations. For example, in a book recommendation system, precision measures the percentage of recommended books the user finds relevant.<br> 
-$$Precision = \frac{TP}{TP+FP}$$
+
+$$\mathbf{Precision} = \frac{TP}{TP+FP}$$
+
 <br>
 * Recall
 It is quantifies the proportion of all relevant items that the model successfully recommends. High recall ensures that the model captures as many relevant items as possible. However, this may include some irrelevant ones (low precision). In our book recommendation scenario, recall measures how many of the books the user might find relevant are actually recommended.<br> 
-$$Recall  = \frac{TP}{TP+FN}$$
+
+$$\mathbf{Recall} = \frac{TP}{TP+FN}$$
+
 <br>
 * F1-Score
 The F1-score is the harmonic mean of precision and recall, providing a single metric to balance both. For a recommender system, the F1-score evaluates the overall effectiveness of recommendations, ensuring neither precision nor recall is sacrificed.<br> 
-$${F_1} = \frac{2\cdot\vn{Precision}\cdot\vn{Recall}}%{\vn{Precision}+\vn{Recall}}$$
 
+$$\mathbf{F}_1 = \frac{2\cdot\vn{Precision}\cdot\vn{Recall}}%{\vn{Precision}+\vn{Recall}}$$
+
+<br>
 
 ### Model Evaluation with Collaborative Filtering
 w
