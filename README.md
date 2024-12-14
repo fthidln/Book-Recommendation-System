@@ -110,19 +110,15 @@ It measures the proportion of recommended items that are actually relevant to th
 
 $$\mathbf{Precision} = \frac{TP}{TP+FP}$$
 
-<br>
 * Recall
 It is quantifies the proportion of all relevant items that the model successfully recommends. High recall ensures that the model captures as many relevant items as possible. However, this may include some irrelevant ones (low precision). In our book recommendation scenario, recall measures how many of the books the user might find relevant are actually recommended.<br> 
 
 $$\mathbf{Recall} = \frac{TP}{TP+FN}$$
 
-<br>
 * F1-Score
 The F1-score is the harmonic mean of precision and recall, providing a single metric to balance both. For a recommender system, the F1-score evaluates the overall effectiveness of recommendations, ensuring neither precision nor recall is sacrificed.<br> 
 
 $$\mathbf{F}_1 = \frac{2\cdot{Precision}\cdot{Recall}}{{Precision}+{Recall}}$$
-
-<br>
 
 ### Model Evaluation with Collaborative Filtering
 w
