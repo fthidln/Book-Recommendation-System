@@ -120,7 +120,7 @@ The F1-score is the harmonic mean of precision and recall, providing a single me
 
 $$\mathbf{F}_1 = \frac{2\cdot{Precision}\cdot{Recall}}{{Precision}+{Recall}}$$
 
-<br>Where:
+Where:
 * TP = True Positive (When the model correctly predicts a positive outcome)
 * TN = True Negative (When the model correctly predicts a negative outcome)
 * FP = False Positive (When the model incorrectly predicts a positive outcome)
@@ -138,11 +138,13 @@ $$RMSE(y, x) = \sqrt{\frac{\sum_{i=0}^{N - 1} (y_i - x_i)^2}{N}}$$
 
 ## Performance of Each Recommender System
 ### Performance of Content-based Filtering
-The evaluation results show that the model performs excellently, with a Precision of 1.0 (no false positives), a Recall of 1.0 (identifying nearly all relevant items), and an F1 Score close to 1.0, indicating a strong balance between precision and recall. These results demonstrate that the model is highly effective at recommending items using content-based filtering. <br> 
+The evaluation results show that the model performs excellently, with a Precision of 1.0 (no false positives), a Recall of 1.0 (identifying nearly all relevant items), and an F1 Score close to 1.0, indicating a strong balance between precision and recall. These results demonstrate that the model is highly effective at recommending items using content-based filtering.
+<br> 
 ![CBF Performance](Assets/ConfMat.png "CBF Performance")
 
 ### Performance of Collaborative Filtering
-The RMSE evaluation visualization shows that the model converges after about 50 epochs, achieving a low MSE value. The final error is 0.2924, with a validation error of 0.3389. These results indicate good performance, as a lower RMSE means better predictions of user preferences, making the recommendation system accurate. <br> 
+The RMSE evaluation visualization shows that the model converges after about 50 epochs, achieving a low MSE value. The final error is 0.2924, with a validation error of 0.3389. These results indicate good performance, as a lower RMSE means better predictions of user preferences, making the recommendation system accurate.
+<br> 
 ![CF Performance](Assets/CF_Perf.png "CF Performance")
 
 ## Recommendation
@@ -160,6 +162,7 @@ This step is carried out to make a function to help the user, finding the recomm
 |8|Seedfolks|Paul Fleischman|
 |9|Seedfolks|Paul Fleischman|
 |10|The Borning Room|Paul Fleischman|
+It can be seen that all of the recommendation for this book share one the same author, Paul Fleischman. This happen because it measure the most relevant books with 'Joyful Noise (rpkg) : Poems for Two Voices' book.
 
 ### Recommendation for Collaborative Filtering
 This step is carried out to make a function to help the user, finding the recommended book based on user's rating and applied it into other user's rating. The sample user that used to test this step is have a user id of 3363 with highest rating book from the user is 'Joyful Noise (rpkg) : Poems for Two Voices' by Paul Fleischman. The top 10 that we got can be seen below.
@@ -175,6 +178,7 @@ This step is carried out to make a function to help the user, finding the recomm
 |8|Legend|Sharon Sala|
 |9|For My Daughters|Barbara Delinsky|
 |10|Memoirs of a Geisha Uk|Arthur Golden|
+With the same book title, it can be seen that the top 10 recommendation for Collaborative Filtering are more various comparing to Content-based Filtering. This is gonna be one of the proof that Content-based Filtering arise cold start issues.
 
 ## Reference
 
