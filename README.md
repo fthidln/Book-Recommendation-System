@@ -119,7 +119,7 @@ This encoding process is essential for converting categorical user data into a n
 #### 
 This stage involves transforming the rating data into a numerical matrix to streamline the model's ability to interpret and learn from it effectively. As part of this stage, several preprocessing steps will be applied: encoding the 'User-ID' and 'ISBN' features into integer indices, mapping 'User-ID' and 'ISBN' to their respective dataframes, and verifying critical data attributes such as the total number of users and books.
 
-## Model Development
+## Modeling and Result
 The data, which is likely a matrix of user-item interactions (book ratings), will be prepared and stored in a DataFrame. It is very different to develop recommendation system using content-based and collaborative filtering. Further explanation for each model development can be seen below.
 
 ### Model Development with Content-based Filtering
@@ -133,8 +133,38 @@ Where:
 * $${||A||}$$ = Length (magnitude) of the two vectors ‘A’
 * $${||B||}$$ = Length (magnitude) of the two vectors ‘B’
 
+### Top-N Recommendation for Content-based Filtering
+This step is carried out to make a function to help the user, finding the recommended book based on book's content. The sample book title that used to test this step is 'Joyful Noise (rpkg) : Poems for Two Voices' by Paul Fleischman. The top 10 that we got can be seen below.
+|Index|Book Title|Book Author|
+|---|---|---|
+|1|Graven Images: Three Stories|Paul Fleischman|
+|2|The Path of the Pale Horse \(Charlotte Zolotow Book\)|Paul Fleischman|
+|3|Seedfolks|Paul Fleischman|
+|4|Seedfolks|Paul Fleischman|
+|5|The Borning Room|Paul Fleischman|
+|6|The Borning Room|Paul Fleischman|
+|7|The Half-a-Moon Inn|Paul Fleischman|
+|8|Seedfolks|Paul Fleischman|
+|9|Seedfolks|Paul Fleischman|
+|10|The Borning Room|Paul Fleischman|
+
 ### Model Development with Collaborative Filtering
 This step applies collaborative filtering to recommend books based on user ratings, assuming similar preferences predict similar choices. The model uses embeddings for users and books, calculates match scores with a sigmoid function, and incorporates user/book biases. Adapted from a Keras tutorial [[ 3 ]](https://keras.io/examples/structured_data/collaborative_filtering_movielens/), it uses Binary Crossentropy for loss, Adam for optimization, and RMSE for evaluation. The data is split into 90% training and 10% validation, due to large amount of data available. Before this, user and book title data are mapped to single values, and ratings are scaled to a 0-1 range for easier training. The RecommenderNet class, built using the Keras Model class and adapted from a Keras tutorial, is used for this process.
+
+### Top-N Recommendation for Collaborative Filtering
+This step is carried out to make a function to help the user, finding the recommended book based on user's rating and applied it into other user's rating. The sample user that used to test this step is have a user id of 3363 with highest rating book from the user is 'Joyful Noise (rpkg) : Poems for Two Voices' by Paul Fleischman. The top 10 that we got can be seen below.
+|Index|Book Title|Book Author|
+|---|---|---|
+|1|The Complete Idiot's Guide to Cycling|Vic Armijo|
+|2|A Kiss on the Nose Turns Anger Aside|Charles M\. Schulz|
+|3|The Dominant Blonde|Alisa Kwitney|
+|4|The Last Report on the Miracles at Little No Horse|Louise Erdrich|
+|5|Ties That Bind|Phillip Margolin|
+|6|Inventing the Abbotts and Other Stories \(Harper\&amp; Row, 1987\)|Sue Miller|
+|7|Kingmaker's Sword \(The Rune Blade Trilogy, Book 1\)|Ann Marston|
+|8|Legend|Sharon Sala|
+|9|For My Daughters|Barbara Delinsky|
+|10|Memoirs of a Geisha Uk|Arthur Golden|
 
 ## Evaluation
 In this step, we evaluate performance of each model that we have been developed. So, this step will be consist of evaluating Content-based filtering model and Collaborative filtering model.
@@ -183,40 +213,7 @@ The RMSE evaluation visualization shows that the model converges after about 50 
 <br> 
 ![CF Performance](Assets/CF_Perf.png "CF Performance")
 
-## Recommendation
-### Recommendation for Content-based Filtering
-This step is carried out to make a function to help the user, finding the recommended book based on book's content. The sample book title that used to test this step is 'Joyful Noise (rpkg) : Poems for Two Voices' by Paul Fleischman. The top 10 that we got can be seen below.
-|Index|Book Title|Book Author|
-|---|---|---|
-|1|Graven Images: Three Stories|Paul Fleischman|
-|2|The Path of the Pale Horse \(Charlotte Zolotow Book\)|Paul Fleischman|
-|3|Seedfolks|Paul Fleischman|
-|4|Seedfolks|Paul Fleischman|
-|5|The Borning Room|Paul Fleischman|
-|6|The Borning Room|Paul Fleischman|
-|7|The Half-a-Moon Inn|Paul Fleischman|
-|8|Seedfolks|Paul Fleischman|
-|9|Seedfolks|Paul Fleischman|
-|10|The Borning Room|Paul Fleischman|
-
-<br>It can be seen that all of the recommendation for this book share one the same author, Paul Fleischman. This happen because it measure the most relevant books with 'Joyful Noise (rpkg) : Poems for Two Voices' book.
-
-### Recommendation for Collaborative Filtering
-This step is carried out to make a function to help the user, finding the recommended book based on user's rating and applied it into other user's rating. The sample user that used to test this step is have a user id of 3363 with highest rating book from the user is 'Joyful Noise (rpkg) : Poems for Two Voices' by Paul Fleischman. The top 10 that we got can be seen below.
-|Index|Book Title|Book Author|
-|---|---|---|
-|1|The Complete Idiot's Guide to Cycling|Vic Armijo|
-|2|A Kiss on the Nose Turns Anger Aside|Charles M\. Schulz|
-|3|The Dominant Blonde|Alisa Kwitney|
-|4|The Last Report on the Miracles at Little No Horse|Louise Erdrich|
-|5|Ties That Bind|Phillip Margolin|
-|6|Inventing the Abbotts and Other Stories \(Harper\&amp; Row, 1987\)|Sue Miller|
-|7|Kingmaker's Sword \(The Rune Blade Trilogy, Book 1\)|Ann Marston|
-|8|Legend|Sharon Sala|
-|9|For My Daughters|Barbara Delinsky|
-|10|Memoirs of a Geisha Uk|Arthur Golden|
-
-<br>With the same book title, it can be seen that the top 10 recommendation for Collaborative Filtering are more various comparing to Content-based Filtering. This is gonna be one of the proof that Content-based Filtering arise cold start issues.
+From Top-N recommendation using Content-Based Filtering table, it can be seen that all of the recommendation for this book share one the same author, Paul Fleischman. This happen because it measure the most relevant books with 'Joyful Noise (rpkg) : Poems for Two Voices' book. Altough, with the same book title, it can be seen that the top 10 recommendation for Collaborative Filtering are more various comparing to Content-based Filtering. This is gonna be one of the proof that Content-based Filtering arise cold start issues.
 
 ## Reference
 
