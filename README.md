@@ -75,12 +75,48 @@ The data indicates that Agatha Christie is the most prolific author, with over 6
 This step is just include merging the dataframe of ratings and books together. This merging step is crucial for the recommendation system because it links user ratings with corresponding book details like author, title, and genre. This unified dataset enables the system to identify patterns in user preferences and recommend similar books based on content they enjoyed. Without this connection, neither content-based nor collaborative filtering techniques could effectively generate personalized recommendations.
 
 ## Data Preparation
-Before model development step, it is inevitable to skip data preparation. This section is important, preparing data so the data that enter model development stage is not generating a trash model. This step is divided into two section, first is Data Preparation for Model Development w/ Content-based Filtering and w/ Collaborative Filtering.   
+Before model development step, it is inevitable to skip data preparation. This section is important, preparing data so the data that enter model development stage is not generating a trash model. This step is divided into two section, first is Data Preparation for Model Development w/ Content-based Filtering and w/ Collaborative Filtering. Albeit, there's also data preperation before that.
+
+### Changing the Data Type of Publication Year Column
+'''
+books['Year-Of-Publication'] = books['Year-Of-Publication'].astype(int)
+'''
+The code snippet above, aims to convert the 'Year-Of-Publication' column in the 'books' DataFrame to an integer data type. This conversion is crucial for ensuring data consistency and compatibility with potential downstream tasks like calculations, analysis, and machine learning model training, where numerical representation of the year is often required.
+
+### Remove Irrelevant Column
+Recommendations are generated based on books with the same title as those read by the user or considering the author's information, also ratings are influential. Consequently, details such as image sizes are unnecessary, allowing the removal of the 'Image-URL-S,' 'Image-URL-M,' and 'Image-URL-L' columns from the dataset.
+
+### 
 
 ### Data Preparation for Model Development with Content-based Filtering
-Several features in the dataset contain a significant number of missing values. It is start with data cleaning which removing empty data using pandas data frame method, drop_dropna(). Later, the dataset provided reveals a mismatch between the number of ISBNs and book titles, suggesting that certain ISBNs are linked to multiple titles. To eliminate this issue, it'll involve eliminating duplicate entries in the 'ISBN' column using data frame method, drop_duplicates().
+#### Missing Value Removal
+Several features in the dataset contain an unsignificant number of missing values. It is handled by removing empty data using pandas data frame method, drop_dropna().
+
+#### Ensuring Data Uniqueness
+It reveals a mismatch between the number of ISBNs and book titles, suggesting that certain ISBNs are linked to multiple titles. To address this, will involve eliminating duplicate entries in the 'ISBN' column. The cleaned dataset will then be stored in a new variable named 'preparation.'
+
+#### List Conversion
+'''
+isbn_id = preparation['ISBN'].tolist()
+
+book_title = preparation['Book-Title'].tolist()
+
+book_author = preparation['Book-Author'].tolist()
+
+year_of_publication = preparation['Year-Of-Publication'].tolist()
+
+publisher = preparation['Publisher'].tolist()
+'''
+This code snippet extracts the 'ISBN', 'Book-Title', 'Book-Author', 'Year-Of-Publication', and 'Publisher' columns from the preparation DataFrame and converts them into separate Python lists. The conversion to list format is necessary for easier manipulation and use of these data elements within other parts of the recommendation system.
+
+#### Dictionary Creation
+The subsequent task is to construct a dictionary that defines key-value pairs for the isbn_id, book_title, book_author, year_of_publication, and publisher fields. This prepared data will serve as the foundation for developing the content-based filtering recommendation system.
 
 ### Data Preparation for Model Development with Collaborative Filtering
+#### USER-ID and ISBN feature Encoding
+This encoding process is essential for converting categorical user data into a numerical format that can be used by machine learning algorithms within the collaborative filtering model. By using numerical representations, the model can perform calculations and comparisons more effectively to identify patterns and make recommendations.
+
+#### 
 This stage involves transforming the rating data into a numerical matrix to streamline the model's ability to interpret and learn from it effectively. As part of this stage, several preprocessing steps will be applied: encoding the 'User-ID' and 'ISBN' features into integer indices, mapping 'User-ID' and 'ISBN' to their respective dataframes, and verifying critical data attributes such as the total number of users and books.
 
 ## Model Development
